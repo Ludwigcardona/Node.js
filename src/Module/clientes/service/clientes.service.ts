@@ -11,9 +11,16 @@ import { UpdateClienteDto } from '../dto/update-cliente.dto';
 
 @Injectable()
 export class ClientesService {
-  updatePartial(id: string, updateClienteDto: UpdateClienteDto) {
-    throw new Error('Method not implemented.');
+  async updatePartial(id: string, updateCliente: UpdateClienteDto): Promise<Clientes> {
+    const updatePartialCliente = await this.clienteModel.findByIdAndUpdate(id, updateCliente, { new: true }).exec();
+  
+    if (!updatePartialCliente) {
+      throw new NotFoundException(`Proveedor con Id ${id} no se encontró`);
+    }
+  
+    return updatePartialCliente;
   }
+
   constructor(@InjectModel(Clientes.name) private clienteModel: Model<Clientes>) {}
 
   // Crear un nuevo cliente

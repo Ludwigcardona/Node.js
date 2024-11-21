@@ -160,17 +160,9 @@ import {
         },
       },
     })
-    async updatePartial(
-      @Param('id') id: string,
-      @Body() updateClienteDto: UpdateClienteDto,
-    ): Promise<Clientes> {
+    async updatePartial(@Param('id') id: string,@Body() updateClienteDto: UpdateClienteDto,): Promise<void> {
       const updatePartialCliente = await this.clientesService.updatePartial(id, updateClienteDto);
   
-      if (!updatePartialCliente) {
-        throw new NotFoundException(`Cliente con Id ${id} no se encontró`);
-      }
-  
-      return updatePartialCliente;
     }
   }
   
